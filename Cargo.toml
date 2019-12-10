@@ -1,0 +1,18 @@
+[package]
+name = "mime-db"
+version = "0.1.0"
+authors = ["Fangdun Cai <cfddream@gmail.com>"]
+edition = "2018"
+description = "Mime DB"
+keywords = ["mime", "media-extensions", "media-types"]
+
+[dependencies]
+
+[build-dependencies]
+surf = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[build-dependencies.async-std]
+version = "1.2"
+features = ["attributes"]
