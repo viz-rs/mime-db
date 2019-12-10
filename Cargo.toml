@@ -3,10 +3,9 @@ name = "mime-db"
 version = "0.1.0"
 authors = ["Fangdun Cai <cfddream@gmail.com>"]
 edition = "2018"
-description = "Mime DB"
+description = "Media Type Database, looks up `extension` or `media type`."
 keywords = ["mime", "media-extensions", "media-types"]
-
-[dependencies]
+license = "MIT/Apache-2.0"
 
 [build-dependencies]
 surf = "1.0"
