@@ -7,8 +7,8 @@ use std::collections::BTreeMap;
 /// Source: https://raw.githubusercontent.com/jshttp/mime-db/master/db.json
 const DB_URL: &str = "https://unpkg.com/mime-db@1.42.0/db.json";
 
-const TPL_E: &str = r#"pub const {{name}}: [(&str, usize); {{len}}] = [{{items}}];"#;
-const TPL_T: &str = r#"pub const {{name}}: [(&str, usize, usize); {{len}}] = [{{items}}];"#;
+const TPL_E: &str = "pub const {{name}}: [(&str, usize); {{len}}] = [{{items}}];";
+const TPL_T: &str = "pub const {{name}}: [(&str, usize, usize); {{len}}] = [{{items}}];";
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Kind {
@@ -29,6 +29,7 @@ async fn main() -> Result<(), surf::Exception> {
 
     let types_file = File::create("src/types.rs").await?;
     let exts_file = File::create("src/extensions.rs").await?;
+
     {
         let mut keys = Vec::new();
         let mut values = Vec::new();
@@ -41,10 +42,6 @@ async fn main() -> Result<(), surf::Exception> {
                 .iter()
                 .map(|e| (e.to_owned(), n))
                 .collect();
-
-            if key == "application/octet-stream" {
-                dbg!(&extensions);
-            }
 
             // extensions.sort_by_key(|e| e.0.to_owned());
 
@@ -67,7 +64,7 @@ async fn main() -> Result<(), surf::Exception> {
                 TPL_E
                     .replace("{{name}}", "EXTENSIONS")
                     .replace("{{len}}", &exts.len().to_string())
-                    .replace("{{items}}", &exts.join(r#", "#))
+                    .replace("{{items}}", &exts.join(", "))
                     .as_bytes(),
             )
             .await?;
@@ -88,7 +85,7 @@ async fn main() -> Result<(), surf::Exception> {
                 TPL_T
                     .replace("{{name}}", "TYPES")
                     .replace("{{len}}", &types.len().to_string())
-                    .replace("{{items}}", &types.join(r#", "#))
+                    .replace("{{items}}", &types.join(", "))
                     .as_bytes(),
             )
             .await?;
