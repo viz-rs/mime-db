@@ -48,7 +48,7 @@ async fn main() -> Result<(), surf::Exception> {
 
             // extensions.sort_by_key(|e| e.0.to_owned());
 
-            keys.push((key, values.len(), values.len() + extensions.len()));
+            keys.push((key, values.len(), extensions.len()));
             values.append(&mut extensions.clone());
             n += 1;
         }

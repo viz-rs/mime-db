@@ -25,7 +25,7 @@ pub fn extensions(t: impl AsRef<str>) -> Option<Vec<&'static str>> {
     let t = t.as_ref();
 
     if let Some((_, s, e)) = TYPES.iter().find(|(e, _, _)| *e == t) {
-        return Some((&EXTENSIONS[*s..*e]).iter().map(|(e, _)| *e).collect());
+        return Some((&EXTENSIONS[*s..(s + e)]).iter().map(|(e, _)| *e).collect());
     }
 
     None
