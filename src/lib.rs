@@ -7,7 +7,7 @@ pub use types::TYPES;
 const DOT: &str = ".";
 
 pub fn lookup(ext: impl AsRef<str>) -> Option<&'static str> {
-    let ext = &(DOT.to_owned() + ext.as_ref())
+    let ext = &(DOT.to_owned() + &ext.as_ref().to_lowercase())
         .rsplitn(2, DOT)
         .collect::<Vec<&str>>()[0]
         .to_owned();
