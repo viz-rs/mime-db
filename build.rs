@@ -1,8 +1,9 @@
-use async_std::fs::File;
-use async_std::io::BufWriter;
-use async_std::prelude::*;
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeMap;
+use std::{
+    collections::BTreeMap,
+    fs::File,
+    io::{BufWriter, Write},
+};
 
 /// Source: https://raw.githubusercontent.com/jshttp/mime-db/master/db.json
 const DB_URL: &str = "https://unpkg.com/mime-db@1.42.0/db.json";
@@ -19,16 +20,16 @@ struct Kind {
 
 type Kinds = BTreeMap<String, Kind>;
 
-#[async_std::main]
-async fn main() -> Result<(), surf::Exception> {
-    let body: Kinds = surf::get(DB_URL).await?.body_json().await?;
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    let body: Kinds = reqwest::get(DB_URL).await?.json().await?;
     let db: Kinds = body
         .into_iter()
         .filter(|(_k, v)| v.extensions.is_some())
         .collect();
 
-    let types_file = File::create("src/types.rs").await?;
-    let exts_file = File::create("src/extensions.rs").await?;
+    let types_file = File::create("src/types.rs")?;
+    let exts_file = File::create("src/extensions.rs")?;
 
     {
         let mut keys = Vec::new();
@@ -59,16 +60,14 @@ async fn main() -> Result<(), surf::Exception> {
                     .replace("{{pos}}", &e.1.to_string())
             })
             .collect();
-        exts_writer
-            .write(
-                TPL_E
-                    .replace("{{name}}", "EXTENSIONS")
-                    .replace("{{len}}", &exts.len().to_string())
-                    .replace("{{items}}", &exts.join(", "))
-                    .as_bytes(),
-            )
-            .await?;
-        exts_writer.flush().await?;
+        exts_writer.write(
+            TPL_E
+                .replace("{{name}}", "EXTENSIONS")
+                .replace("{{len}}", &exts.len().to_string())
+                .replace("{{items}}", &exts.join(", "))
+                .as_bytes(),
+        )?;
+        exts_writer.flush()?;
 
         let mut types_writer = BufWriter::new(types_file);
         let types: Vec<String> = keys
@@ -80,16 +79,14 @@ async fn main() -> Result<(), surf::Exception> {
                     .replace("{{end}}", &e.2.to_string())
             })
             .collect();
-        types_writer
-            .write(
-                TPL_T
-                    .replace("{{name}}", "TYPES")
-                    .replace("{{len}}", &types.len().to_string())
-                    .replace("{{items}}", &types.join(", "))
-                    .as_bytes(),
-            )
-            .await?;
-        types_writer.flush().await?;
+        types_writer.write(
+            TPL_T
+                .replace("{{name}}", "TYPES")
+                .replace("{{len}}", &types.len().to_string())
+                .replace("{{items}}", &types.join(", "))
+                .as_bytes(),
+        )?;
+        types_writer.flush()?;
     }
 
     Ok(())
