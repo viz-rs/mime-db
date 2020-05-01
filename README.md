@@ -1,8 +1,15 @@
 <h1 align="center">mime-db</h1>
 <div align="center">
-  <strong>
-    Media Type Database, looks up `extension` or `media type`.
-  </strong>
+  <p>
+    <strong>
+      Media Type Database, looks up `extension` or `media type`.
+    </strong>
+  </p>
+  <p>
+    Synced with 
+    <a href="https://github.com/jshttp/mime-db">
+      <img alt="jshttp/mime-db" src="https://img.shields.io/npm/v/mime-db/latest?label=jshttp%2Fmime-db"></a>
+  </p>
 </div>
 
 <br />
@@ -11,23 +18,19 @@
   <!-- Crates version -->
   <a href="https://crates.io/crates/mime-db">
     <img src="https://img.shields.io/crates/v/mime-db.svg"
-    alt="Crates.io version" />
-  </a>
+    alt="Crates.io version" /></a>
   <!-- Downloads -->
   <a href="https://crates.io/crates/mime-db">
     <img src="https://img.shields.io/crates/d/mime-db.svg"
-      alt="Download" />
-  </a>
+      alt="Download" /></a>
   <!-- docs.rs docs -->
   <a href="https://docs.rs/mime-db">
     <img src="https://img.shields.io/badge/mime-db.svg"
-      alt="docs.rs docs" />
-  </a>
+      alt="docs.rs docs" /></a>
   <!-- CI status -->
   <a href="https://github.com/trek-rs/mime-db/actions">
     <img src="https://github.com/trek-rs/mime-db/workflows/CI/badge.svg"
-      alt="CI Status" />
-  </a>
+      alt="CI Status" /></a>
 </div>
 
 ### Installation

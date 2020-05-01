@@ -1,6 +1,6 @@
 [package]
 name = "mime-db"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Fangdun Cai <cfddream@gmail.com>"]
 edition = "2018"
 description = "Media Type Database, looks up `extension` or `media type`."
@@ -8,6 +8,15 @@ keywords = ["mime", "media-extensions", "media-types"]
 repository = "https://github.com/trek-rs/mime-db"
 readme = "README.md"
 license = "MIT/Apache-2.0"
+build = false
+
+include = [
+    "src/*.rs",
+    "Cargo.toml",
+    "README.md",
+    "LICENSE-APACHE",
+    "LICENSE-MIT"
+]
 
 [build-dependencies]
 reqwest = { version = "0.10", features = ["json"] }
