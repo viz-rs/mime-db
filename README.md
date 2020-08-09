@@ -1,45 +1,36 @@
 <h1 align="center">mime-db</h1>
+
 <div align="center">
-  <p>
-    <strong>
-      Media Type Database, looks up `extension` or `media type`.
-    </strong>
+  <p><strong>Media Type Database, looks up `extension` or `media type`</strong>
   </p>
-  <p>
-    Synced with 
+  <p> Synced with
     <a href="https://github.com/jshttp/mime-db">
-      <img alt="jshttp/mime-db" src="https://img.shields.io/npm/v/mime-db/latest?label=jshttp%2Fmime-db"></a>
+      <img alt="jshttp/mime-db" src="https://img.shields.io/npm/v/mime-db/latest?style=flat-square&label=jshttp%2Fmime-db"></a>
   </p>
 </div>
 
-<br />
-
 <div align="center">
+  <!-- docs.rs docs -->
+  <a href="https://docs.rs/mime-db">
+    <img src="https://img.shields.io/badge/mime-db.svg?style=flat-square"
+      alt="docs.rs docs" /></a>
   <!-- Crates version -->
   <a href="https://crates.io/crates/mime-db">
-    <img src="https://img.shields.io/crates/v/mime-db.svg"
+    <img src="https://img.shields.io/crates/v/mime-db.svg?style=flat-square"
     alt="Crates.io version" /></a>
   <!-- Downloads -->
   <a href="https://crates.io/crates/mime-db">
-    <img src="https://img.shields.io/crates/d/mime-db.svg"
+    <img src="https://img.shields.io/crates/d/mime-db.svg?style=flat-square"
       alt="Download" /></a>
-  <!-- docs.rs docs -->
-  <a href="https://docs.rs/mime-db">
-    <img src="https://img.shields.io/badge/mime-db.svg"
-      alt="docs.rs docs" /></a>
-  <!-- CI status -->
-  <a href="https://github.com/trek-rs/mime-db/actions">
-    <img src="https://github.com/trek-rs/mime-db/workflows/CI/badge.svg"
-      alt="CI Status" /></a>
 </div>
 
-### Installation
+## Installation
 
 ```shell
 cargo add mime-db
 ```
 
-### Usage
+## Usage
 
 ```rust
 use mime_db::{extension, extensions, lookup};
@@ -50,25 +41,27 @@ assert_eq!(lookup("folder/file.js").unwrap(), "application/javascript");
 assert_eq!(lookup("folder/.htaccess"), None);
 assert_eq!(lookup("cats"), None);
 
-assert_eq!(
-    extensions("application/octet-stream").unwrap(),
-    vec![
-        "bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc",
-        "deploy", "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"
-    ]
-);
+assert!(extensions("application/octet-stream").unwrap().eq([
+    "bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc",
+    "deploy", "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"
+]
+.iter()
+.cloned()));
 
 assert_eq!(extension("application/octet-stream").unwrap(), "bin");
-
 ```
 
-### License
+## License
 
-This project is licensed under either of
+<sup>
+Licensed under either of <a href="LICENSE-APACHE">Apache License, Version
+2.0</a> or <a href="LICENSE-MIT">MIT license</a> at your option.
+</sup>
 
-- Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
-  http://www.apache.org/licenses/LICENSE-2.0)
-- MIT license ([LICENSE-MIT](LICENSE-MIT) or
-  http://opensource.org/licenses/MIT)
+<br>
 
-at your option.
+<sub>
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in this crate by you, as defined in the Apache-2.0 license, shall
+be dual licensed as above, without any additional terms or conditions.
+</sub>

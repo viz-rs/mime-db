@@ -1,6 +1,6 @@
 [package]
 name = "mime-db"
-version = "0.1.5"
+version = "1.0.0"
 authors = ["Fangdun Cai <cfddream@gmail.com>"]
 edition = "2018"
 description = "Media Type Database, looks up `extension` or `media type`."
@@ -20,6 +20,6 @@ include = [
 
 [build-dependencies]
 reqwest = { version = "0.10", features = ["json"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 tokio = { version = "0.2", features = ["macros", "rt-threaded"] }
