@@ -10,10 +10,10 @@
 </div>
 
 <div align="center">
-  <!-- docs.rs docs -->
+  <!-- Docs.rs docs -->
   <a href="https://docs.rs/mime-db">
-    <img src="https://img.shields.io/badge/mime-db.svg?style=flat-square"
-      alt="docs.rs docs" /></a>
+    <img src="https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square"
+      alt="Docs.rs docs" /></a>
   <!-- Crates version -->
   <a href="https://crates.io/crates/mime-db">
     <img src="https://img.shields.io/crates/v/mime-db.svg?style=flat-square"
