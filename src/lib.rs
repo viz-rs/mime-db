@@ -1,5 +1,7 @@
 #![no_std]
 
+use core::slice;
+
 mod extensions;
 mod types;
 
@@ -19,16 +21,62 @@ pub fn lookup(extension: impl AsRef<str>) -> Option<&'static str> {
 }
 
 pub fn extensions(mime_type: impl AsRef<str>) -> Option<impl Iterator<Item = &'static str>> {
+    let iter = extensions2(mime_type);
+    if iter.size_hint().0 == 0 {
+        None
+    } else {
+        Some(iter)
+    }
+}
+
+pub fn extensions2(mime_type: impl AsRef<str>) -> ExtensionsIter {
     let mime_type = mime_type.as_ref();
+
+    // easy way to get an empty &'static slice
+    const EMPTY: &[(&str, usize)] = &[];
 
     TYPES
         .iter()
         .find(|(kind, _, _)| *kind == mime_type)
-        .map(|(_, start, len)| (&EXTENSIONS[*start..][..*len]).iter().map(|(ext, _)| *ext))
+        .map_or_else(
+            || ExtensionsIter {
+                inner: EMPTY.iter(),
+            },
+            |(_, start, len)| ExtensionsIter {
+                inner: EXTENSIONS[*start..][..*len].iter(),
+            },
+        )
 }
 
+#[inline]
 pub fn extension(mime_type: impl AsRef<str>) -> Option<&'static str> {
-    extensions(mime_type).and_then(|mut exts| exts.next())
+    extensions2(mime_type).next()
+}
+
+#[must_use = "iterators are lazy and do nothing unless consumed"]
+#[derive(Debug, Clone)]
+pub struct ExtensionsIter {
+    // Uses std's implementation of slice Iterator, since it's much more optimized
+    // and probably uses unsafe internally to avoid bounds checks.
+    inner: slice::Iter<'static, (&'static str, usize)>,
+}
+
+impl Iterator for ExtensionsIter {
+    type Item = &'static str;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.inner.next().map(|(ext, _)| *ext)
+    }
+
+    #[inline]
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        self.inner.size_hint()
+    }
+
+    #[inline]
+    fn count(self) -> usize {
+        self.inner.count()
+    }
 }
 
 #[cfg(test)]
@@ -46,6 +94,17 @@ fn search() {
     ]
     .iter()
     .cloned()));
+    assert!(extensions("application/cat").is_none());
+
+    assert!(extensions2("application/octet-stream").eq([
+        "bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc", "deploy",
+        "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"
+    ]
+    .iter()
+    .cloned()));
+    assert!(extensions2("application/cat").next().is_none());
+    assert!(extensions2("application/cat").size_hint() == (0, Some(0)));
+    assert!(extensions2("application/cat").count() == 0);
 
     assert_eq!(extension("application/octet-stream").unwrap(), "bin");
 }

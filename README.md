@@ -41,7 +41,7 @@ assert_eq!(lookup("folder/file.js").unwrap(), "application/javascript");
 assert_eq!(lookup("folder/.htaccess"), None);
 assert_eq!(lookup("cats"), None);
 
-assert!(extensions("application/octet-stream").unwrap().eq([
+assert!(extensions2("application/octet-stream").eq([
     "bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc",
     "deploy", "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"
 ]
