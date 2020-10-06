@@ -13,5 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `extensions2`
 
+### Changed
+
+- Synced with [`jshttp/mime-db` v1.45.0](https://github.com/jshttp/mime-db/releases/tag/v1.45.0)
+
 [Unreleased]: https://github.com/viz-rs/mime-db/compare/v1.1.0...HEAD
 [1.1.0]: https://github.com/viz-rs/mime-db/compare/v1.0.0...v1.1.0
