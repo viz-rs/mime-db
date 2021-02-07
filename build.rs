@@ -20,7 +20,7 @@ struct Kind {
 
 type Kinds = BTreeMap<String, Kind>;
 
-#[tokio::main]
+#[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let body: Kinds = reqwest::get(DB_URL).await?.json().await?;
     let db: Kinds = body
