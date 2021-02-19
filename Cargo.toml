@@ -1,6 +1,6 @@
 [package]
 name = "mime-db"
-version = "1.1.0"
+version = "1.2.0"
 authors = ["Fangdun Cai <cfddream@gmail.com>"]
 edition = "2018"
 description = "Media Type Database, looks up `extension` or `media type`."
