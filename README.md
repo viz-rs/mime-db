@@ -1,11 +1,8 @@
 <h1 align="center">mime-db</h1>
 
 <div align="center">
-  <p><strong>Media Type Database, looks up `extension` or `media type`</strong>
-  </p>
-  <p> Synced with
-    <a href="https://github.com/jshttp/mime-db">
-      <img alt="jshttp/mime-db" src="https://img.shields.io/npm/v/mime-db/latest?style=flat-square&label=jshttp%2Fmime-db"></a>
+  <p>
+    <strong>Media Type Database, looks up `extension` or `media type`</strong>
   </p>
 </div>
 
@@ -22,6 +19,9 @@
   <a href="https://crates.io/crates/mime-db">
     <img src="https://img.shields.io/crates/d/mime-db.svg?style=flat-square"
       alt="Download" /></a>
+  <a href="https://github.com/jshttp/mime-db">
+    <img src="https://img.shields.io/npm/v/mime-db/latest?style=flat-square&label=jshttp%2Fmime-db"
+      alt="jshttp/mime-db" /></a>
 </div>
 
 ## Installation
