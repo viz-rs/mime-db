@@ -8,7 +8,7 @@ use std::{
 use serde::{Deserialize, Serialize};
 
 /// Source: https://raw.githubusercontent.com/jshttp/mime-db/master/db.json
-const DB_URL: &str = "https://unpkg.com/mime-db@1.48.0/db.json";
+const DB_URL: &str = "https://unpkg.com/mime-db@1.49.0/db.json";
 
 const TPL_E: &str = "pub const {{name}}: [(&str, usize); {{len}}] = [{{items}}];";
 const TPL_T: &str = "pub const {{name}}: [(&str, usize, usize); {{len}}] = [{{items}}];";
