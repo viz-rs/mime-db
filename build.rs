@@ -8,7 +8,7 @@ use std::{
 use serde::{Deserialize, Serialize};
 
 /// Source: https://raw.githubusercontent.com/jshttp/mime-db/master/db.json
-const DB_URL: &str = "https://unpkg.com/mime-db@1.49.0/db.json";
+const DB_URL: &str = "https://unpkg.com/mime-db@1.50.0/db.json";
 
 const TPL_E: &str = "pub const {{name}}: [(&str, usize); {{len}}] = [{{items}}];";
 const TPL_T: &str = "pub const {{name}}: [(&str, usize, usize); {{len}}] = [{{items}}];";
@@ -36,8 +36,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     {
         let mut keys = Vec::new();
         let mut values = Vec::new();
-        let mut n: usize = 0;
-        for (key, value) in db.iter() {
+        for (n, (key, value)) in db.iter().enumerate() {
             let extensions: Vec<(String, usize)> = value
                 .extensions
                 .as_ref()
@@ -50,7 +49,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
             keys.push((key, values.len(), extensions.len()));
             values.append(&mut extensions.clone());
-            n += 1;
         }
 
         let mut exts_writer = BufWriter::new(exts_file);
@@ -76,7 +74,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             .iter()
             .map(|e| {
                 r#"("{{ext}}", {{start}}, {{end}})"#
-                    .replace("{{ext}}", &e.0)
+                    .replace("{{ext}}", e.0)
                     .replace("{{start}}", &e.1.to_string())
                     .replace("{{end}}", &e.2.to_string())
             })

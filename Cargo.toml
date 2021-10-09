@@ -1,6 +1,6 @@
 [package]
 name = "mime-db"
-version = "1.5.0"
+version = "1.6.0"
 authors = ["Fangdun Cai <cfddream@gmail.com>"]
 edition = "2018"
 description = "Media Type Database, looks up `extension` or `media type`."
@@ -8,7 +8,6 @@ keywords = ["mime", "media-extensions", "media-types", "no_std"]
 repository = "https://github.com/viz-rs/mime-db"
 readme = "README.md"
 license = "MIT/Apache-2.0"
-build = false
 
 include = [
     "CHANGES.md",
