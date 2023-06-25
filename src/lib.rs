@@ -10,6 +10,10 @@ pub use types::TYPES;
 
 pub fn lookup(extension: impl AsRef<str>) -> Option<&'static str> {
     let extension = extension.as_ref();
+    if extension.is_empty() {
+        return None;
+    }
+
     let extension = extension
         .rfind('.')
         .map_or(extension, |i| &extension[i + 1..]);
@@ -32,16 +36,15 @@ pub fn extensions(mime_type: impl AsRef<str>) -> Option<impl Iterator<Item = &'s
 pub fn extensions2(mime_type: impl AsRef<str>) -> ExtensionsIter {
     let mime_type = mime_type.as_ref();
 
-    // easy way to get an empty &'static slice
-    const EMPTY: &[(&str, usize)] = &[];
+    if mime_type.is_empty() {
+        return ExtensionsIter::default();
+    }
 
     TYPES
         .iter()
         .find(|(kind, _, _)| *kind == mime_type)
         .map_or_else(
-            || ExtensionsIter {
-                inner: EMPTY.iter(),
-            },
+            || ExtensionsIter::default(),
             |(_, start, len)| ExtensionsIter {
                 inner: EXTENSIONS[*start..][..*len].iter(),
             },
@@ -59,6 +62,16 @@ pub struct ExtensionsIter {
     // Uses std's implementation of slice Iterator, since it's much more optimized
     // and probably uses unsafe internally to avoid bounds checks.
     inner: slice::Iter<'static, (&'static str, usize)>,
+}
+
+impl Default for ExtensionsIter {
+    fn default() -> Self {
+        // easy way to get an empty &'static slice
+        const EMPTY: &[(&str, usize)] = &[];
+        Self {
+            inner: EMPTY.iter(),
+        }
+    }
 }
 
 impl Iterator for ExtensionsIter {
@@ -87,6 +100,7 @@ fn search() {
     assert_eq!(lookup("folder/file.js").unwrap(), "application/javascript");
     assert_eq!(lookup("folder/.htaccess"), None);
     assert_eq!(lookup("cats"), None);
+    assert_eq!(lookup(""), None);
 
     assert!(extensions("application/octet-stream").unwrap().eq([
         "bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc", "deploy",
@@ -103,8 +117,9 @@ fn search() {
     .iter()
     .cloned()));
     assert!(extensions2("application/cat").next().is_none());
-    assert!(extensions2("application/cat").size_hint() == (0, Some(0)));
-    assert!(extensions2("application/cat").count() == 0);
+    assert_eq!(extensions2("application/cat").size_hint(), (0, Some(0)));
+    assert_eq!(extensions2("application/cat").count(), 0);
+    assert_eq!(extensions2("").count(), 0);
 
     assert_eq!(extension("application/octet-stream").unwrap(), "bin");
 }
