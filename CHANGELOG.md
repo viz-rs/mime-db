@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The `extensions2` and `lookup` functions now early exit when an empty input is passed.
+
 ## [1.5.0] - 2021-09-11
 
 ### Changed
