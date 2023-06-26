@@ -43,12 +43,9 @@ pub fn extensions2(mime_type: impl AsRef<str>) -> ExtensionsIter {
     TYPES
         .iter()
         .find(|(kind, _, _)| *kind == mime_type)
-        .map_or_else(
-            ExtensionsIter::default,
-            |(_, start, len)| ExtensionsIter {
-                inner: EXTENSIONS[*start..][..*len].iter(),
-            },
-        )
+        .map_or_else(ExtensionsIter::default, |(_, start, len)| ExtensionsIter {
+            inner: EXTENSIONS[*start..][..*len].iter(),
+        })
 }
 
 #[inline]
