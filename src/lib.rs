@@ -44,7 +44,7 @@ pub fn extensions2(mime_type: impl AsRef<str>) -> ExtensionsIter {
         .iter()
         .find(|(kind, _, _)| *kind == mime_type)
         .map_or_else(
-            || ExtensionsIter::default(),
+            ExtensionsIter::default,
             |(_, start, len)| ExtensionsIter {
                 inner: EXTENSIONS[*start..][..*len].iter(),
             },
@@ -107,7 +107,7 @@ fn search() {
         "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"
     ]
     .iter()
-    .cloned()));
+    .copied()));
     assert!(extensions("application/cat").is_none());
 
     assert!(extensions2("application/octet-stream").eq([
@@ -115,7 +115,7 @@ fn search() {
         "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"
     ]
     .iter()
-    .cloned()));
+    .copied()));
     assert!(extensions2("application/cat").next().is_none());
     assert_eq!(extensions2("application/cat").size_hint(), (0, Some(0)));
     assert_eq!(extensions2("application/cat").count(), 0);
