@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - 2023-06-26
+
 ### Changed
 
 - The `extensions2` and `lookup` functions now early exit when an empty input is passed.
+
+- Synced with [`jshttp/mime-db` v1.52.0](https://github.com/jshttp/mime-db/releases/tag/v1.52.0)
 
 ## [1.5.0] - 2021-09-11
 
@@ -45,8 +49,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Synced with [`jshttp/mime-db` v1.45.0](https://github.com/jshttp/mime-db/releases/tag/v1.45.0)
 
-[Unreleased]: https://github.com/viz-rs/mime-db/compare/v1.5.0...HEAD
-[1.49.0]: https://github.com/viz-rs/mime-db/compare/v1.4.0...v1.5.0
+[Unreleased]: https://github.com/viz-rs/mime-db/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/viz-rs/mime-db/compare/v1.6.0...v1.k.0
+[1.6.0]: https://github.com/viz-rs/mime-db/compare/v1.5.0...v1.6.0
+[1.5.0]: https://github.com/viz-rs/mime-db/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/viz-rs/mime-db/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/viz-rs/mime-db/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/viz-rs/mime-db/compare/v1.1.0...v1.2.0
