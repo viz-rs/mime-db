@@ -1,7 +1,7 @@
 [package]
 name = "mime-db"
-version = "1.7.0"
-authors = ["Fangdun Cai <cfddream@gmail.com>"]
+version = "1.8.0"
+authors = ["Fangdun Tsai <cfddream@gmail.com>"]
 description = "Media Type Database, looks up `extension` or `media type`."
 keywords = ["mime", "media-extensions", "media-types", "no_std"]
 repository = "https://github.com/viz-rs/mime-db"
@@ -11,12 +11,12 @@ edition = "2021"
 build = false
 
 include = [
-    "CHANGES.md",
-    "Cargo.toml",
-    "LICENSE-APACHE",
-    "LICENSE-MIT",
-    "README.md",
-    "src/*.rs"
+  "CHANGES.md",
+  "Cargo.toml",
+  "LICENSE-APACHE",
+  "LICENSE-MIT",
+  "README.md",
+  "src/*.rs",
 ]
 
 [build-dependencies]
