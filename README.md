@@ -33,7 +33,7 @@ cargo add mime-db
 ## Usage
 
 ```rust
-use mime_db::{extension, extensions, lookup};
+use mime_db::{extension, extensions2, lookup};
 
 assert_eq!(lookup("json").unwrap(), "application/json");
 assert_eq!(lookup(".md").unwrap(), "text/markdown");
